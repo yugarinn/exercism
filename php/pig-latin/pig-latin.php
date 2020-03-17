@@ -21,23 +21,34 @@ class Pigifier
         $characters = str_split($word);
         $charactersToAppend = [];
 
-        foreach ($characters as $index => $character) {
-            if ($this->shouldStop($index, $character)) {
+        foreach ($characters as $index => $current) {
+            $next = $characters[$index + 1];
+
+            if ($this->shouldStop($index, $current, $next)) {
                 break;
             } else {
-                $charactersToAppend[] = $characters[$index];
-                unset($characters[$index]);
+                if ($current == 'q' && $next == 'u') {
+                    $charactersToAppend[] = $current;
+                    $charactersToAppend[] = $next;
+                    unset($characters[$index]);
+                    unset($characters[$index + 1]);
+                } else {
+                    $charactersToAppend[] = $current;
+                    unset($characters[$index]);
+                }
             }
         }
 
         return $this->glue($characters, $charactersToAppend);
     }
 
-    private function shouldStop(int $index, string $character)
+    private function shouldStop(int $index, string $current, string $next)
     {
         return (
-            (in_array($character, self::VOWELS) && !$index) || // the first character is a vowel
-            (in_array($character, self::VOWELS) && $index)    // a vowel is found mid word
+            (in_array($current, self::VOWELS) && !$index) || // the first character is a vowel
+            (in_array($current, self::VOWELS) && $index)  || // a vowel is found mid word
+            ($current == 'y' && $next == 't') || // IDK if these two cases are the only ones or it should be generalized somehow
+            ($current == 'x' && $next == 'r')
         );
     }
 

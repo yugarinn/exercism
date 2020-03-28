@@ -1,5 +1,7 @@
 const BANDS  = ['black', 'brown', 'red', 'orange', 'yellow', 'green', 'blue', 'violet', 'grey', 'white'];
 
+const getColorIndex = (color) => BANDS.indexOf(color);
+
 export const decodedValue = (colors) => {
-  return parseInt(`${BANDS.indexOf(colors[0])}${BANDS.indexOf(colors[1])}`);
+  return getColorIndex(colors[0]) * 10 + getColorIndex(colors[1]);
 };

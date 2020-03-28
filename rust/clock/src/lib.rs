@@ -12,35 +12,17 @@ impl Clock {
     const MINUTES_CAP: i32 = 60;
 
     pub fn new(hours: i32, minutes: i32) -> Self {
+        let computed_hours = (hours + minutes.div_euclid(Clock::MINUTES_CAP)).rem_euclid(Clock::HOURS_CAP);
+        let computed_minutes = minutes.rem_euclid(Clock::MINUTES_CAP);
+
         Clock {
-            hours: Clock::compute_hours(hours, minutes),
-            minutes: Clock::compute_minutes(minutes),
+            hours: computed_hours,
+            minutes: computed_minutes,
         }
     }
 
     pub fn add_minutes(&self, minutes: i32) -> Self {
-        unimplemented!("Add {} minutes to existing Clock time", minutes);
-    }
-
-    pub fn compute_hours(hours: i32, minutes: i32) -> i32 {
-        let total_hours: i32 = (minutes / Clock::MINUTES_CAP) + hours;
-        let computed_hours: i32 = total_hours % Clock::HOURS_CAP;
-
-        if computed_hours < Clock::HOURS_CAP {
-            computed_hours
-        } else {
-            0
-        }
-    }
-
-    pub fn compute_minutes(minutes: i32) -> i32 {
-        let computed_minutes: i32 = minutes % Clock::MINUTES_CAP;
-
-        if computed_minutes < Clock::MINUTES_CAP {
-            computed_minutes
-        } else {
-            0
-        }
+        Clock::new(self.hours, self.minutes + minutes)
     }
 
     pub fn format_field(field: i32) -> String {

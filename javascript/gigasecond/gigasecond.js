@@ -1,5 +1,5 @@
 export const gigasecond = (date) => {
-  const seconds = 1000000000000;
+  const GIGASECOND_IN_MS = 1e12;
 
-  return new Date(date.getTime() + seconds);
+  return new Date(date.getTime() + GIGASECOND_IN_MS);
 };

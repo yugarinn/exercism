@@ -5,9 +5,4 @@ const DNA_RNA_MAP = {
   A: 'U',
 };
 
-export const toRna = (strand) => {
-  return strand
-    .split('')
-    .map(nucleotide => DNA_RNA_MAP[nucleotide])
-    .join('')
-};
+export const toRna = strand => strand.replace(/[GCTA]/g, nucleotide => DNA_RNA_MAP[nucleotide])

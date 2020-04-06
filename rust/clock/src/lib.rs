@@ -24,18 +24,10 @@ impl Clock {
     pub fn add_minutes(&self, minutes: i32) -> Self {
         Clock::new(self.hours, self.minutes + minutes)
     }
-
-    pub fn format_field(field: i32) -> String {
-        if field < 10 {
-            format!("0{}", field)
-        } else {
-            field.to_string()
-        }
-    }
 }
 
 impl fmt::Display for Clock {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        write!(f, "{}:{}", Clock::format_field(self.hours), Clock::format_field(self.minutes))
+        write!(f, "{}", format!("{:02}:{:02}", self.hours, self.minutes))
     }
 }

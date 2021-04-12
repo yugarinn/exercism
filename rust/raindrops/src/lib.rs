@@ -17,5 +17,5 @@ pub fn raindrops(number: u32) -> String {
         return sound;
     }
 
-    return number.to_string();
+    number.to_string()
 }

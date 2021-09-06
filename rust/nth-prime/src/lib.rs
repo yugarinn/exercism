@@ -3,7 +3,7 @@ pub fn nth(position: u32) -> u32 {
     let mut prime_at_position: u32 = 0;
 
     for number in 2..u32::max_value() {
-        if position == 0 || (position != 0 && found_primes == position) {
+        if position == 0 || found_primes == position {
             prime_at_position = number;
             break;
         }
